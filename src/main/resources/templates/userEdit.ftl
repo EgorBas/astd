@@ -7,5 +7,5 @@
         <h2>Редактировать профиль пользователя</h2>
     </div>
     ${message?ifExists}
-    <@u.user "/user" false/>
+    <@u.user "/user" false user/>
 </@c.page>

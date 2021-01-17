@@ -6,5 +6,5 @@
         <h2>Добавить нового пользователя</h2>
     </div>
     ${message?ifExists}
-    <@u.user "/userAdd" true />
+    <@u.user "/userAdd" true false/>
 </@c.page>

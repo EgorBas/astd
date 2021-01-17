@@ -3,17 +3,19 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>ASTD</title>
+        <title>ASUOD</title>
         <link rel="stylesheet" href="/static/style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+              integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+              crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/0723301f28.js" crossorigin="anonymous"></script>
     </head>
 
     <body class="bg-light">
     <#include "navbar.ftl">
-    <div class="container-fluid mt-5">
+    <div class="container mt-5">
         <#nested>
     </div>
 

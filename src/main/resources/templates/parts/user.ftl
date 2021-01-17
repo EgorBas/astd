@@ -1,7 +1,5 @@
-<#macro user path isUserAddedForm>
+<#macro user path isUserAddedForm user>
     <form action="${path}" method="post">
-        ${user.username}
-
         <div class="form-group row offset-md-3">
             <label class="col-sm-2 col-form-label">Логин:</label>
             <div class="col-sm-6">
