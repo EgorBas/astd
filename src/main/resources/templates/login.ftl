@@ -3,7 +3,8 @@
 <@c.page>
     <div class="row justify-content-center">
         <form action="/login" method="post" class="form-signin">
-            <h1 class="h1 mb-5 font-weight-normal text-center">Автоматизированная система<br>учета оборудования и
+            <h1 class="h1 mb-5 font-weight-normal text-center text-body">Автоматизированная система<br>учета
+                оборудования и
                 документации</h1>
 
             <div class="row justify-content-center">

@@ -7,8 +7,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     User findByUsername(String username);
 
-    @Override
-    default void deleteById(Long userId) {
-    }
 }
 

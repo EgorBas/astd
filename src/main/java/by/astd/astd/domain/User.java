@@ -30,6 +30,14 @@ public class User implements UserDetails {
         return roles.contains(Role.ADMIN);
     }
 
+    public boolean isServiceManager() {
+        return roles.contains(Role.SERVICE_MANAGER);
+    }
+
+    public boolean isOperator() {
+        return roles.contains(Role.OPERATOR);
+    }
+
     public Long getId() {
         return id;
     }

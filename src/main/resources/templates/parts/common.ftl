@@ -13,7 +13,7 @@
         <script src="https://kit.fontawesome.com/0723301f28.js" crossorigin="anonymous"></script>
     </head>
 
-    <body class="bg-light">
+    <body class="bg-light text-body">
     <#include "navbar.ftl">
     <div class="container mt-5">
         <#nested>
