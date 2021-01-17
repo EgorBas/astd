@@ -1,10 +1,10 @@
 <#import "parts/common.ftl" as c>
-<#import "parts/login.ftl" as l>
+<#import "parts/user.ftl" as u>
 
 <@c.page>
     <div class="mb-4 text-center">
         <h2>Добавить нового пользователя</h2>
     </div>
     ${message?ifExists}
-    <@l.login "/userAdd" true />
+    <@u.user "/userAdd" true />
 </@c.page>

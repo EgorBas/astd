@@ -1,5 +1,5 @@
 <#include "security.ftl">
-<#import "login.ftl" as l>
+<#import "user.ftl" as u>
 
 <nav class="navbar navbar-expand-sm navbar-light bg-secondary">
     <a class="navbar-brand" href="/">АСТД</a>
@@ -33,7 +33,11 @@
         </div>
         <#if name=="unknown">
             <a class="btn btn-primary" href="/login">Войти</a>
-            <#else> <@l.logout />
+        <#else>
+            <form action="/logout" method="post">
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <button class="btn btn-primary" type="submit">Выход</button>
+            </form>
         </#if>
     </div>
 </nav>
