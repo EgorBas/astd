@@ -52,12 +52,33 @@
         </div>
 
         <div class="form-group row offset-md-3">
+            <label class="col-sm-2 col-form-label">Статус пользователя:</label>
+            <div class="col-sm-6">
+                <select name="active" class="form-control">
+                    <#if isUserAddedForm>
+                        <option value="none" hidden="">Выберите статус</option>
+                        <option value="1">Активен</option>
+                        <option value="0">Заблокирован</option>
+                    <#else>
+                        <#if user.active==true>
+                            <option value="1" selected>Активен</option>
+                            <option value="0">Заблокирован</option>
+                        <#else>
+                            <option value="1">Активен</option>
+                            <option value="0" selected>Заблокирован</option>
+                        </#if>
+                    </#if>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row offset-md-3">
             <label class="col-sm-2 col-form-label">Права:</label>
             <div class="col-sm-6">
                 <#list roles as role>
                     <label><input class="mr-3" type="checkbox"
                                 <#if isUserAddedForm> name="${role}">${role}
-                        <#else> name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}
+                        <#else>name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}
                         </#if>
                     </label><br>
                 </#list>

@@ -50,7 +50,7 @@
             <div class="col-sm-6">
                 <select name="active" class="form-control">
                     <#if isStationAddedForm>
-                        <option value="none" hidden="">Выберите тип</option>
+                        <option value="none" hidden="">Выберите статус</option>
                         <option value="1">Активен</option>
                         <option value="0">Демонтирован</option>
                     <#else>

@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/station")
-@PreAuthorize("hasAuthority({'ADMIN', 'SERVICE_MANAGER'})")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'SERVICE_MANAGER')")
 public class StationController {
     @Autowired
     private StationRepo stationRepo;
 
     @GetMapping
+
     public String stationList(Model model) {
         model.addAttribute("stations", stationRepo.findAll());
         return "stationList";

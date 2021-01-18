@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@PreAuthorize("hasAuthority({'ADMIN', 'SERVICE_MANAGER'})")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'SERVICE_MANAGER')")
 public class StationAddController {
     @Autowired
     private StationRepo stationRepo;
@@ -26,7 +26,7 @@ public class StationAddController {
         Station stationFromDB = stationRepo.findByStationname(station.getStationname());
 
         if (stationFromDB != null) {
-            model.addAttribute("message", "Такой поьзователь уже существует");
+            model.addAttribute("message", "ПТЭ с таким названием уже существует");
             return "stationAdd";
         }
 
