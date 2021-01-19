@@ -51,7 +51,9 @@
 
             </tbody>
         </table>
-
+        <#include "parts/datatableimports.ftl">
+        <script type="text/javascript" charset="utf8"
+                src="/static/js/datatablectivate.js"></script>
     </div>
 
 </@c.page>

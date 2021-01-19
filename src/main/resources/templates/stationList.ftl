@@ -50,6 +50,7 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="/stationAdd">Добавить</a>
-
+    <#include "parts/datatableimports.ftl">
+    <script type="text/javascript" charset="utf8"
+            src="/static/js/datatablectivate.js"></script>
 </@c.page>
