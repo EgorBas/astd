@@ -10,9 +10,10 @@
               integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
               crossorigin="anonymous">
         <!-- DataTable CSS -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="/static/DataTables_bs4/datatables.css">
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css"
-              href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+              href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">-->
         <!-- My CSS -->
         <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
 

@@ -1,14 +1,58 @@
 $(document).ready(function () {
-    $('#myTable').DataTable({
-        //scrollY: 400
-        "paging": true,
+    var table = $('#myTable').DataTable({
+        lengthChange: false,
         "pageLength": 10,
-        "lengthMenu": [[5, 10, 15, 20, 25, -1], [5, 10, 15, 20, 25, "All"]],
         "pagingType": "full_numbers",
-        order: [[1, 'asc']],
-        dom: 'Blfrtip',
+        lengthMenu: [
+            [5, 10, 15, 25, 50, -1],
+            ['5 строк', '10 строк', '15 строк', '25 строк', '50 строк', 'Все']],
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print',
+            {
+                extend: 'pageLength',
+                text: 'Кол-во строк',
+            },
+            {
+                extend: 'colvis',
+                text: 'Видимость столбцов',
+                postfixButtons: [
+                    {
+                        extend: 'colvisRestore',
+                        text: 'Сброс',
+                        className: 'text-center'
+                    }
+                ]
+            },
+            {
+                extend: 'collection',
+                text: 'Экспорт',
+                autoClose: true,
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Копировать в Буфер',
+                        className: 'text-center'
+                    },
+                    {
+                        extend: 'csv',
+                        text: 'Экспорт в CSV',
+                        className: 'text-center'
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Экспорт в Excel',
+                        className: 'text-center'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Экспорт в PDF',
+                        className: 'text-center'
+                    },
+                ]
+            },
+            {
+                extend: 'print',
+                text: 'Печать'
+            },
         ],
         language: {
             "processing": "Подождите...",
@@ -39,4 +83,6 @@ $(document).ready(function () {
             }
         }
     });
+    table.buttons().container()
+        .appendTo('#myTable_wrapper .col-md-6:eq(0)');
 });

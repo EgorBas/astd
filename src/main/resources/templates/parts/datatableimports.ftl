@@ -1,5 +1,5 @@
 <!-- DataTable JS -->
-<script type="text/javascript" charset="utf8"
+<!--<script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js">
 </script>
 <script type="text/javascript" charset="utf8"
@@ -20,4 +20,5 @@
 <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
 <script type="text/javascript" charset="utf8"
-        src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
+        src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>-->
+<script type="text/javascript" src="/static/DataTables_bs4/datatables.js"></script>
