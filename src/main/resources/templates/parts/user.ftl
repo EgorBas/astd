@@ -90,7 +90,8 @@
         </#if>
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button class="btn btn-primary offset-md-5"
+        <a type="button" class="btn btn-primary offset-md-5 mr-5" href="/user">Назад</a>
+        <button class="btn btn-success"
                 type="submit"><#if isUserAddedForm>Добавить<#else>Сохранить</#if></button>
     </form>
 </#macro>

@@ -1,11 +1,19 @@
 <#import "parts/common.ftl" as c>
 
-<@c.page>
-    <div class="mb-3 text-center">
-        <h2>Список ПТЭ</h2>
+<@c.page 'ASUOD-ListStation'>
+    <div class="table-wrapper">
+    <div class="table-title">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Управление ПТЭ</h2>
+            </div>
+            <div class="col-sm-6">
+                <a href="/stationAdd" class="btn btn-success btn-group">Добавить</a>
+            </div>
+        </div>
     </div>
 
-    <table class="table table-hover table table-bordered">
+    <table class="table table-hover table table-bordered" id="myTable">
         <thead class="thead-light text-center">
         <tr>
             <th>Номер</th>
@@ -31,8 +39,10 @@
                     </#if>
                 </td>
                 <td class="align-middle">
-                    <a href="/station/${station.id}" title="Изменить"><i class="far fa-edit"></i></a><br>
-                    <a href="/station/del/${station.id}" title="Удалить"><i class="far fa-trash-alt"></i></a><br>
+                    <a href="/station/${station.id}" data-toggle="tooltip" title="Редактировать ПТЭ"><i
+                                class="far fa-edit fa-lg"></i></a>
+                    <a href="/station/del/${station.id}" data-toggle="tooltip" title="Удалить ПТЭ"><i
+                                class="far fa-trash-alt fa-lg"></i></a>
                 </td>
             </tr>
         </#list>

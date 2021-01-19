@@ -1,8 +1,8 @@
 <#include "security.ftl">
 <#import "user.ftl" as u>
 
-<nav class="navbar navbar-expand-sm" style="background-color: darkgray">
-    <span class="navbar-brand mb-1 mt-1 h1 text-body">АСУОД</span>
+<nav class="navbar navbar-expand-sm">
+    <span class="brand mb-1 mt-1 mr-5 text-body">АСУОД</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,6 +12,12 @@
         <ul class="navbar-nav mr-auto ">
             <li class="nav-item">
                 <a class="nav-link text-body" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-body" href="/">Справочники</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-body" href="/test">Тест</a>
             </li>
             <#if isServiceManager || isAdmin>
                 <li class="nav-item">
