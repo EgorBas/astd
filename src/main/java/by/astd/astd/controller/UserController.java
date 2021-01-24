@@ -2,66 +2,103 @@ package by.astd.astd.controller;
 
 import by.astd.astd.domain.Role;
 import by.astd.astd.domain.User;
-import by.astd.astd.repos.UserRepo;
 import by.astd.astd.servcie.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/user")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserRepo userRepo;
 
-    @GetMapping
+
+    @GetMapping("/userAdd")
+    public String registration(Model model) {
+        model.addAttribute("roles", Role.values());
+        return "userAdd";
+    }
+
+    @PostMapping("/userAdd")
+    public String addUser(@RequestParam Map<String, String> form,
+                          @Valid User user,
+                          BindingResult bindingResult,
+                          Model model) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("user", user);
+        } else {
+            if (!userService.addUser(form, user)) {
+                model.addAttribute("message", "Пользователь с таким логином уже существует");
+                model.addAttribute("messagetype", "danger");
+                model.addAttribute("roles", Role.values());
+                return "userAdd";
+            }
+            model.addAttribute("message", "Пользователь успешно добавлен");
+            model.addAttribute("messagetype", "success");
+            model.addAttribute("user", null);
+        }
+        model.addAttribute("roles", Role.values());
+        return "userAdd";
+    }
+
+    @GetMapping("/user")
     public String userList(Model model) {
-        model.addAttribute("users", userRepo.findAll());
+        model.addAttribute("users", userService.findAll());
         return "userAll";
     }
 
-    @GetMapping("{user}")
+    @GetMapping("/user/{user}")
     public String userEditForm(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
         return "userEdit";
     }
 
-    @GetMapping("/del/{user}")
+    @GetMapping("/user/del/{user}")
     public String userDelete(@PathVariable User user, Model model) {
-        userRepo.delete(user);
-        model.addAttribute("users", userRepo.findAll());
+        userService.delete(user);
+        model.addAttribute("users", userService.findAll());
         return "userAll";
     }
 
-    @PostMapping
+    @PostMapping("/user")
     public String userSave(
-            @RequestParam String username,
-            @RequestParam String firstname,
-            @RequestParam String lastname,
-            @RequestParam String patronymic,
-            @RequestParam String password,
-            @RequestParam String email,
-            @RequestParam boolean active,
+            @Valid User userform,
+            BindingResult bindingResult,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user,
             Model model) {
 
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
-        if (!userService.userSave(username, firstname, lastname, patronymic, password, email, active, form, user)) {
-            //Заглушка на случай ошибки
-            model.addAttribute("message", "Сообщениеоб ошибке");
-            return "userEdit";
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("user", user);
+            model.addAttribute("userform", userform);
+            model.addAttribute("hasvaliderror", true);
+        } else {
+            if (!userService.userSave(userform, form, user)) {
+                //Заглушка на случай ошибки
+                model.addAttribute("message", "Сообщениеоб ошибке");
+                model.addAttribute("roles", Role.values());
+                return "userEdit";
+            }
+            model.addAttribute("message", "Профиль сохранен");
+            model.addAttribute("messagetype", "success");
         }
-        model.addAttribute("message", "Профиль сохранен");
         return "userEdit";
     }
 }

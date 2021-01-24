@@ -11,12 +11,8 @@
               crossorigin="anonymous">
         <!-- DataTable CSS -->
         <link rel="stylesheet" type="text/css" href="/static/DataTables_bs4/datatables.css">
-        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
-        <link rel="stylesheet" type="text/css"
-              href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">-->
         <!-- My CSS -->
         <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
-
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
                 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

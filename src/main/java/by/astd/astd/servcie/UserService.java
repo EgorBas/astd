@@ -7,18 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -28,7 +29,6 @@ public class UserService implements UserDetailsService {
     public boolean addUser(Map<String, String> form,
                            User user) {
         User userFromDB = userRepo.findByUsername(user.getUsername());
-
         if (userFromDB != null) {
             return false;
         }
@@ -45,28 +45,23 @@ public class UserService implements UserDetailsService {
             user.setRoles(userRoles);
         }
 
-        userRepo.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
+        userRepo.save(user);
         return true;
     }
 
-    public boolean userSave(String username,
-                            String firstname,
-                            String lastname,
-                            String patronymic,
-                            String password,
-                            String email,
-                            boolean active,
+    public boolean userSave(User userform,
                             Map<String, String> form,
                             User user) {
 
-        user.setUsername(username);
-        user.setFirstname(firstname);
-        user.setLastname(lastname);
-        user.setPatronymic(patronymic);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setActive(active);
+        user.setUsername(userform.getUsername());
+        user.setFirstname(userform.getFirstname());
+        user.setLastname(userform.getLastname());
+        user.setPatronymic(userform.getPatronymic());
+        user.setPassword(passwordEncoder.encode(userform.getPassword()));
+        user.setEmail(userform.getEmail());
+        user.setActive(userform.isActive());
 
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
@@ -82,6 +77,14 @@ public class UserService implements UserDetailsService {
 
         userRepo.save(user);
         return true;
+    }
+
+    public List<User> findAll() {
+        return userRepo.findAll();
+    }
+
+    public void delete(User user) {
+        userRepo.delete(user);
     }
 }
 

@@ -5,6 +5,5 @@
     <div class="mb-4 text-center">
         <h3>Профиль пользователя</h3>
     </div>
-    ${message?ifExists}
-    <@u.user "/user" false user/>
+    <@u.user "/user" false user userform!'null'/>
 </@c.page>

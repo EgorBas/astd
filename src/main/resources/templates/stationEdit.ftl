@@ -3,8 +3,7 @@
 
 <@c.page 'ASUOD-EditStation'>
     <div class="mb-4 text-center">
-        <h2>Редактировать ПТЭ</h2>
+        <h3>Данные ПТЭ</h3>
     </div>
-    ${message?ifExists}
-    <@s.station "/station" false station/>
+    <@s.station "/station" false station!'null' stationform!'null'/>
 </@c.page>

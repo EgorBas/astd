@@ -3,8 +3,7 @@
 
 <@c.page 'ASUOD-AddStation'>
     <div class="mb-4 text-center">
-        <h2>Добавить новый ПТЭ</h2>
+        <h3>Добавить новый ПТЭ</h3>
     </div>
-    ${message?ifExists}
-    <@s.station "/stationAdd" true false/>
+    <@s.station "/stationAdd" true station!'null' stationform!'null'/>
 </@c.page>
