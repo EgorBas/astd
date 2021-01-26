@@ -1,6 +1,6 @@
-package by.astd.astd.config;
+package by.asuod.config;
 
-import by.astd.astd.servcie.UserService;
+import by.asuod.servcie.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

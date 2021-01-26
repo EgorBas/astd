@@ -1,7 +1,7 @@
-package by.astd.astd.servcie;
+package by.asuod.servcie;
 
-import by.astd.astd.domain.Station;
-import by.astd.astd.repos.StationRepo;
+import by.asuod.domain.Station;
+import by.asuod.repos.StationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package by.astd.astd.domain;
+package by.asuod.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

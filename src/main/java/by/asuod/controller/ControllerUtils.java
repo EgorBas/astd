@@ -1,4 +1,4 @@
-package by.astd.astd.controller;
+package by.asuod.controller;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

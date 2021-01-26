@@ -1,7 +1,7 @@
-package by.astd.astd.controller;
+package by.asuod.controller;
 
-import by.astd.astd.domain.Station;
-import by.astd.astd.servcie.StationService;
+import by.asuod.domain.Station;
+import by.asuod.servcie.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

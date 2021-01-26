@@ -1,4 +1,4 @@
-package by.astd.astd.domain;
+package by.asuod.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

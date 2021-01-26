@@ -1,8 +1,8 @@
-package by.astd.astd.servcie;
+package by.asuod.servcie;
 
-import by.astd.astd.domain.Role;
-import by.astd.astd.domain.User;
-import by.astd.astd.repos.UserRepo;
+import by.asuod.domain.Role;
+import by.asuod.domain.User;
+import by.asuod.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

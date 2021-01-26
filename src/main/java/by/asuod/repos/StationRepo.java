@@ -1,6 +1,6 @@
-package by.astd.astd.repos;
+package by.asuod.repos;
 
-import by.astd.astd.domain.Station;
+import by.asuod.domain.Station;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StationRepo extends JpaRepository<Station, Long> {
