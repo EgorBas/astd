@@ -191,16 +191,17 @@
             </div>
         </div>
 
+        <div class="form-group row offset-md-3 mt-4">
+            <a type="button" class="btn btn-primary offset-md-1 mr-5" href="/station">Назад</a>
+            <button class="btn btn-success mr-5"
+                    type="submit"><#if isAddedForm>Добавить<#else>Сохранить</#if></button>
+            <button class="btn btn-secondary"
+                    type="reset"><#if isAddedForm>Сбросить<#else>Исходные значения</#if></button>
+        </div>
+
         <#if !isAddedForm>
             <input type="hidden" value="${station.id}" name="stationId">
         </#if>
-
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-
-        <a type="button" class="btn btn-primary offset-md-4 mr-5" href="/station">Назад</a>
-        <button class="btn btn-success mr-5"
-                type="submit"><#if isAddedForm>Добавить<#else>Сохранить</#if></button>
-        <button class="btn btn-secondary"
-                type="reset"><#if isAddedForm>Сбросить<#else>Исходные значения</#if></button>
     </form>
 </#macro>

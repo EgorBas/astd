@@ -1,4 +1,4 @@
-<#macro user path isUserAddedForm user userform>
+<#macro user path isAddedForm user userform>
 
     <#if message?? && messagetype??>
         <div class="alert alert-dismissible fade show mb-4 col-md-6 offset-md-3 alert-${messagetype}" role="alert">
@@ -15,7 +15,7 @@
             <div class="col-sm-6">
                 <input type="text" name="username"
                        class="form-control ${(usernameError??)?string('is-invalid','')}"
-                        <#if isUserAddedForm>
+                        <#if isAddedForm>
                             <#if user!='null'>value="${user.username}"</#if>
                         <#else>
                             <#if hasvaliderror??>
@@ -39,7 +39,7 @@
             <div class="col-sm-6">
                 <input type="text" name="lastname"
                        class="form-control ${(lastnameError??)?string('is-invalid','')}"
-                        <#if isUserAddedForm>
+                        <#if isAddedForm>
                             <#if user!='null'>value="${user.lastname}"</#if>
                         <#else>
                             <#if hasvaliderror??>
@@ -63,7 +63,7 @@
             <div class="col-sm-6">
                 <input type="text" name="firstname"
                        class="form-control ${(firstnameError??)?string('is-invalid','')}"
-                        <#if isUserAddedForm>
+                        <#if isAddedForm>
                             <#if user!='null'>value="${user.firstname}"</#if>
                         <#else>
                             <#if hasvaliderror??>
@@ -87,7 +87,7 @@
             <div class="col-sm-6">
                 <input type="text" name="patronymic"
                        class="form-control ${(patronymicError??)?string('is-invalid','')}"
-                        <#if isUserAddedForm>
+                        <#if isAddedForm>
                             <#if user!='null'>value="${user.patronymic}"</#if>
                         <#else>
                             <#if hasvaliderror??>
@@ -111,7 +111,7 @@
             <div class="col-sm-6">
                 <input type="email" name="email"
                        class="form-control ${(emailError??)?string('is-invalid','')}"
-                        <#if isUserAddedForm>
+                        <#if isAddedForm>
                             <#if user!='null'>value="${user.email}"</#if>
                         <#else>
                             <#if hasvaliderror??>
@@ -133,24 +133,41 @@
         <div class="form-group row offset-md-3">
             <label class="col-sm-2 col-form-label">Пароль:</label>
             <div class="col-sm-6">
-                <input type="password" name="password"
-                       class="form-control ${(passwordError??)?string('is-invalid','')}"
-                       <#if user!='null'>value="${user.password}"</#if>
-                       placeholder="Пароль"
-                />
-                <#if passwordError??>
-                    <div class="invalid-feedback">
-                        ${passwordError}
+                <#if !isAddedForm>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#password"
+                            aria-expanded="false" aria-controls="password">
+                        Изменить пароль
+                    </button>
+                    <div class="collapse mt-3 ${(passwordError??)?string('show','')}" id="password">
+                        <input type="password" name="password"
+                               class="form-control ${(passwordError??)?string('is-invalid','')}"
+                               placeholder="Введите новый пароль" required
+                        />
+                        <#if passwordError??>
+                            <div class="invalid-feedback">
+                                ${passwordError}
+                            </div>
+                        </#if>
                     </div>
+                <#else>
+                    <input type="password" name="password"
+                           class="form-control ${(passwordError??)?string('is-invalid','')}"
+                           placeholder="Введите новый пароль" required
+                    />
+                    <#if passwordError??>
+                        <div class="invalid-feedback">
+                            ${passwordError}
+                        </div>
+                    </#if>
                 </#if>
             </div>
         </div>
 
         <div class="form-group row offset-md-3">
             <label class="col-sm-2 col-form-label">Статус пользователя:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-6 d-flex align-items-center">
                 <select name="active" class="form-control">
-                    <#if isUserAddedForm>
+                    <#if isAddedForm>
                         <option value="1">Активен</option>
                         <option value="0">Заблокирован</option>
                     <#else>
@@ -171,7 +188,7 @@
             <div class="col-sm-6">
                 <#list roles as role>
                     <label><input class="mr-3" type="checkbox"
-                                <#if isUserAddedForm> name="${role}">${role}
+                                <#if isAddedForm> name="${role}">${role}
                         <#else>name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}
                         </#if>
                     </label><br>
@@ -179,16 +196,19 @@
             </div>
         </div>
 
-        <#if !isUserAddedForm>
+        <div class="form-group row offset-md-3">
+            <a type="button" class="btn btn-primary mr-5 offset-md-1" href="/user">Назад</a>
+            <button class="btn btn-success mr-5"
+                    type="submit"><#if isAddedForm>Добавить<#else>Сохранить</#if></button>
+            <button class="btn btn-secondary"
+                    type="reset"><#if isAddedForm>Сбросить<#else>Исходные значения</#if></button>
+        </div>
+
+        <#if !isAddedForm>
             <input type="hidden" value="${user.id}" name="userId">
         </#if>
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <a type="button" class="btn btn-primary offset-mb-4 mr-5" href="/user">Назад</a>
-        <button class="btn btn-success mr-5"
-                type="submit"><#if isUserAddedForm>Добавить<#else>Сохранить</#if></button>
-        <button class="btn btn-secondary"
-                type="reset"><#if isUserAddedForm>Сбросить<#else>Исходные значения</#if></button>
     </form>
 
 
