@@ -10,6 +10,7 @@
             <div class="row justify-content-center">
                 <label for="inputEmail" class="sr-only">Логин</label>
                 <input type="text" name="username" id="inputEmail" class="form-control mb-4 col-sm-7"
+                       data-toggle="tooltip" title="Введите логин"
                        placeholder="Логин" required=""
                        autofocus="">
             </div>
@@ -17,6 +18,7 @@
             <div class="row justify-content-center">
                 <label for="inputPassword" class="sr-only">Пароль</label>
                 <input type="password" name="password" id="inputPassword" class="form-control mb-4 col-sm-7"
+                       data-toggle="tooltip" title="Введите пароль"
                        placeholder="Пароль"
                        required="">
             </div>

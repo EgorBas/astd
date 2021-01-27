@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <table class="table table-bordered table-hover" id="myTable">
+        <table class="table table-bordered table-hover" id="userTable">
             <thead class="text-center thead-light">
             <tr>
                 <th>Логин</th>
@@ -76,10 +76,10 @@
     </div>
 
     <!-- DataTable JS-->
-    <#include "parts/datatableimports.ftl">
+    <script type="text/javascript" src="/static/DataTables_bs4/datatables.js"></script>
     <!-- DataTable Table Settings-->
     <script type="text/javascript" charset="utf8"
-            src="/static/js/datatablectivate.js"></script>
+            src="/static/js/dataTableActivateUserTable.js"></script>
     <!-- JS For Modal Confirm Delete User-->
     <script>
         $(document).ready(function () {

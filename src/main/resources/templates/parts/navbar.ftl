@@ -1,7 +1,7 @@
 <#include "security.ftl">
 <#import "user.ftl" as u>
 
-<nav class="navbar navbar-expand-sm fixed-top">
+<nav class="navbar navbar-expand-sm fixed-top navbar-light" style="background-color: #e3f2fd">
     <span class="brand mb-1 mt-1 mr-5 text-body">АСУОД</span>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -55,11 +55,23 @@ public class UserService implements UserDetailsService {
                             Map<String, String> form,
                             User user) {
 
+        if (!user.getUsername().equals(userform.getUsername())) {
+            User userFromDB = userRepo.findByUsername(userform.getUsername());
+            if (userFromDB != null) {
+                return false;
+            }
+        }
+
+        if (!user.getPassword().equals(userform.getPassword())) {
+            user.setPassword(passwordEncoder.encode(userform.getPassword()));
+        } else {
+            user.setPassword(userform.getPassword());
+        }
+
         user.setUsername(userform.getUsername());
         user.setFirstname(userform.getFirstname());
         user.setLastname(userform.getLastname());
         user.setPatronymic(userform.getPatronymic());
-        user.setPassword(passwordEncoder.encode(userform.getPassword()));
         user.setEmail(userform.getEmail());
         user.setActive(userform.isActive());
 

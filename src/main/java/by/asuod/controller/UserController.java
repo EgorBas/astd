@@ -86,14 +86,14 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
-            model.addAttribute("user", user);
             model.addAttribute("userform", userform);
             model.addAttribute("hasvaliderror", true);
         } else {
             if (!userService.userSave(userform, form, user)) {
-                //Заглушка на случай ошибки
-                model.addAttribute("message", "Сообщениеоб ошибке");
-                model.addAttribute("roles", Role.values());
+                model.addAttribute("userform", userform);
+                model.addAttribute("hasvaliderror", true);
+                model.addAttribute("message", "Пользователь с таким логином уже существует");
+                model.addAttribute("messagetype", "danger");
                 return "userEdit";
             }
             model.addAttribute("message", "Профиль сохранен");

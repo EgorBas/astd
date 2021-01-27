@@ -9,7 +9,7 @@
         </div>
     </#if>
 
-    <form action="${path}" method="post">
+    <form action="${path}" method="post" id="userform">
         <div class="form-group row offset-md-3">
             <label class="col-sm-2 col-form-label">Логин:</label>
             <div class="col-sm-6">
@@ -141,7 +141,12 @@
                     <div class="collapse mt-3 ${(passwordError??)?string('show','')}" id="password">
                         <input type="password" name="password"
                                class="form-control ${(passwordError??)?string('is-invalid','')}"
-                               placeholder="Введите новый пароль" required
+                                <#if hasvaliderror??>
+                                    <#if userform!='null'>value="${userform.password}"</#if>
+                                <#else>
+                                    <#if user!='null'>value="${user.password}"</#if>
+                                </#if>
+                               placeholder="Введите новый пароль"
                         />
                         <#if passwordError??>
                             <div class="invalid-feedback">
@@ -198,7 +203,7 @@
 
         <div class="form-group row offset-md-3">
             <a type="button" class="btn btn-primary mr-5 offset-md-1" href="/user">Назад</a>
-            <button class="btn btn-success mr-5"
+            <button class="btn btn-success mr-5" form="userform"
                     type="submit"><#if isAddedForm>Добавить<#else>Сохранить</#if></button>
             <button class="btn btn-secondary"
                     type="reset"><#if isAddedForm>Сбросить<#else>Исходные значения</#if></button>
@@ -210,7 +215,4 @@
 
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
     </form>
-
-
-
 </#macro>

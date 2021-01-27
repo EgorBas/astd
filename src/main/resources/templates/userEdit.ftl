@@ -5,5 +5,5 @@
     <div class="mb-4 text-center">
         <h3>Профиль пользователя</h3>
     </div>
-    <@u.user "/user" false user userform!'null'/>
+    <@u.user "/user" false user!'null' userform!'null'/>
 </@c.page>

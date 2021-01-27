@@ -1,6 +1,8 @@
 $(document).ready(function () {
-    var table = $('#myTable').DataTable({
+    var table = $('#stationTable').DataTable({
         lengthChange: false,
+        colReorder: true,
+        order: [[0, 'asc']],
         "pageLength": 10,
         "pagingType": "full_numbers",
         lengthMenu: [
@@ -42,11 +44,6 @@ $(document).ready(function () {
                         text: 'Экспорт в Excel',
                         className: 'text-center'
                     },
-                    {
-                        extend: 'pdf',
-                        text: 'Экспорт в PDF',
-                        className: 'text-center'
-                    },
                 ]
             },
             {
@@ -84,5 +81,5 @@ $(document).ready(function () {
         }
     });
     table.buttons().container()
-        .appendTo('#myTable_wrapper .col-md-6:eq(0)');
+        .appendTo('#stationTable_wrapper .col-md-6:eq(0)');
 });
