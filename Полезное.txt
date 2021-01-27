@@ -1,0 +1,146 @@
+Короче, у меня всё получилось. Хотя потратил я на "прохождение" 13-го видео времени столько же, как и на предыдущие 12 :).
+Во первых, задеплоить из под  Windows я не осилил. Установил всё, что нужно, но Maven не работал,  из скрипта по SSH не подключался и т.п. (через Putty всё работало). Поэтому откусил от своего SSD раздел 70Гб и установил туда Ubuntu 18.04.1 LTS.
+В качестве "боевого сервера" создал на www.amazon.com/ec2 инстанс Ubuntu 16. Добрый (и богатый) Amazon даёт "начинающим" программистам бесплатно ресурсы в рамках программы Free Tier на 1 год. Через год (или раньше) можно этот аккаунт убить и зарегистрировать новый, на новую почту (например, gmail.com). Этих ресурсов достаточно, чтобы ваш сервер был запущен целый год круглосуточно. При создании инстанса сразу увеличивайте размер тома до 30 Гб (макс. объём для бесплатного использования), по умолчанию стоит 8Гб.
+Грабли, которые я собрал:
+1) Подключение к свежему серверу Ununtu немного отличается от видео автора. Никаких ключей, как на видео, генерировать не надо. Надо использовать тот ключ, который вам выдал Amazon после запуска инстанса (например, max.pem):
+ssh -i ~/.ssh/max.pem ubuntu@16.17.18.190
+Ключ, естественно, нужно положить в каталог .ssh в домашнем каталоге.
+После того, как что-то спросит при первом подключении, нужно набрать yes (y или д - недостаточно!)
+2) Сервера Amazon по умолчанию имеют английскую локаль, поэтому лучше сразу переключить на русскую. Из командной строки это сделать можно. Это нужно для того, чтобы на следующем этапе встал postgresql.
+3) Устанавливаем postgres:
+sudo apt-get install postgresql-client postgresql postgresql-contrib
+4) Очень удивился, что на дефолтном образе Ubuntu нет Java. Устанавливаем (погуглите как, например, с помощью webupd8.org)
+5) К сожалению, никак не смог заставить работать некоторые (не все) команды из скрипта. Если вставить в терминал и выполнить - работают. Копирую в скрипт - не работают. То есть команды работают, процесс копирования файлов идёт, а файл как был старый на сервере , так и остаётся. Магия какая-то. Может скрипт под другим пользователем запускается? Объясните, кто знает. Вот эти команды просто ручками запускал в терминале (используя историю команд, естественно):
+mvn clean package
+scp -i ~/.ssh/max.pem ~/dev/Spring/sweater/target/sweater-1.0-SNAPSHOT.jar ubuntu@16.17.18.190:~/dev/sweater/
+Все остальные команды работают!
+Кстати, командой "./scripts/deploy.sh" не запускается, только "bash ./scripts/deploy.sh". Почему? Может bash как-то неправильно прикручен? В дефолтном Ubuntu глючный bash?
+6) Последние сутки мучался над тем, что после загрузки картинок карточки сообщений появлялись, а сами картинки не отображались. Причём через терминал я смотрел, на сервере в соответствующей папке картинки появляются исправно. Догадывался, что дело в nginx. Но как? У автора всё же работало!? В итоге, посмотрев другие примеры в сети, поставил звездочку после /img/* - и всё сразу заработало. То есть полностью эта секция в файле /etc/nginx/sites-available/default у меня получилась такая:
+        location /img/* {
+                alias ~/dev/sweater/unloads/;
+        }
+Вот теперь меня мучает вопрос: а почему работало у автора? Магия, да и только!
+
+
+
+
+Когда учился тоже задавался последним вопросом) по пунктам:
+1. К амазону да, ключи делаются по-другому
+2. если пользуешь амазон - лучше не ставить отдельно postgres, а использовать отдельный сервер Amazon RDS, там есть инстранс с Postgres
+3. +
+4. ну так она не всем нужна-то
+5. скрипт должен содержать переводы строк в unix формате, чтобы баш скрипт запускался из командной строи, нужно к файлу применить свойство "исполняемый" chmod +x filename
+6. +
+ну и помни, что через год амазон начнёт просить деньги за сервера
+
+
+
+5. Да, дело было в переводе строк. Было: CRLF, стало LF. Перенабил все переносы строк заново - скрипт заработал.
+В правом нижнем углу Intellij Idea есть переключатель кодировки. Ставишь LF. Потом становишься курсором в конец какой-то строки, нажимаешь Del до тех пор, пока нижележащая строка не встанет в текущую строку, а потом нажимаешь Enter. Так вот,  этот Enter сформирует уже правильный для bash в Linux перевод строки.
+
+
+
+create table hibernate_sequence
+(
+    next_val bigint
+) engine = InnoDB;
+insert into hibernate_sequence
+values (2);
+
+create table stations
+(
+    id             bigint       not null,
+    stationnumber  integer      not null,
+    stationcode    varchar(255) not null,
+    stationname    varchar(255) not null,
+    stationtype    varchar(255) not null,
+    stationaddress varchar(255) not null,
+    active         bit          not null,
+    primary key (id)
+) engine = InnoDB;
+
+create table user_role
+(
+    user_id bigint not null,
+    roles   varchar(255)
+) engine = InnoDB;
+
+create table users
+(
+    id         bigint       not null,
+    active     bit          not null,
+    email      varchar(255),
+    firstname  varchar(255) not null,
+    lastname   varchar(255) not null,
+    password   varchar(255) not null,
+    patronymic varchar(255) not null,
+    username   varchar(255) not null,
+    primary key (id)
+) engine = InnoDB;
+
+alter table user_role
+    add constraint user_role_user_fk foreign key (user_id) references users (id);
+
+INSERT INTO users (id, active, email, firstname, lastname, password, patronymic, username)
+VALUES (1, true, 'basinskii_gv@vitebsk.beltelecom.by', 'Басинский', 'Георгий',
+        '$2a$08$toy8kwubCDpl9L2gxwa3SOe6EDWAaXYdf800mF1PT9WodjdAEROA.', 'Владимирович', 'egorbas');
+
+INSERT INTO user_role (user_id, roles)
+VALUES (1, 'ADMIN'),
+       (1, 'SERVICE_MANAGER'),
+       (1, 'OPERATOR');
+
+
+
+
+
+
+Чтобы остановить веб-сервер, введите:
+sudo systemctl stop nginx
+
+Чтобы запустить остановленный веб-сервер, введите:
+sudo systemctl start nginx
+
+Чтобы остановить и снова запустить службу, введите:
+sudo systemctl restart nginx
+
+Если вы просто вносите изменения в конфигурацию, во многих случаях Nginx может перезагружаться без отключения соединений. Для этого введите:
+sudo systemctl reload nginx
+
+По умолчанию Nginx настроен на автоматический запуск при загрузке сервера. Если вы не хотите этого, вы можете отключить такое поведение с помощью следующей команды:
+sudo systemctl disable nginx
+
+Чтобы перезагрузить службу для запуска во время загрузки, введите:
+sudo systemctl enable nginx
+
+Устанавливаем NGINX
+
+sudo amazon-linux-extras install nginx1.12
+редактируем конфигурацию:
+
+sudo vi  /etc/nginx/nginx.conf
+меняем имя пользователя. Было "nginx" стало "ec2-user".
+
+обновляем раздел location так:
+
+location / {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass http://localhost:8080;
+}
+
+location /img/ {
+    alias /home/ec2-user/uploads/;
+}
+открываем доступ пользователю ec2-user к папке сервера nginx:
+
+sudo chown -Rf ec2-user:ec2-user /var/lib/nginx
+запускаем сервер:
+
+sudo service nginx start
+если нужен перезапуск сервера:
+
+sudo nginx -s reload
+если нужно посмотреть логи nginx:
+
+sudo vim /var/log/nginx/error.log

@@ -1,9 +1,11 @@
-package by.astd.astd.domain;
+package by.asuod.domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Set;
 
@@ -13,11 +15,19 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank(message = "Поле \"Логин\", не может быть пустым")
     private String username;
+    @NotBlank(message = "Поле \"Имя\", не может быть пустым")
     private String firstname;
+    @NotBlank(message = "Поле \"Фамиия\", не может быть пустым")
     private String lastname;
+    @NotBlank(message = "Поле \"Отчество\", не может быть пустым")
     private String patronymic;
+    @Email(message = "E-mail некорректный")
+    @NotBlank(message = "Поле \"E-mail\", не может быть пустым")
     private String email;
+    @NotBlank(message = "Поле \"Пароль\", не может быть пустым")
     private String password;
     private boolean active;
 
@@ -28,6 +38,14 @@ public class User implements UserDetails {
 
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
+    }
+
+    public boolean isServiceManager() {
+        return roles.contains(Role.SERVICE_MANAGER);
+    }
+
+    public boolean isOperator() {
+        return roles.contains(Role.OPERATOR);
     }
 
     public Long getId() {

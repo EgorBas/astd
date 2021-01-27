@@ -1,13 +1,13 @@
-package by.astd.astd;
+package by.asuod;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AstdApplication {
+public class AsuodApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AstdApplication.class, args);
+        SpringApplication.run(AsuodApplication.class, args);
     }
 
 }

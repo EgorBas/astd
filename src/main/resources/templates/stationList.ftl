@@ -1,50 +1,49 @@
 <#import "parts/common.ftl" as c>
 
-<@c.page 'ASUOD-ListUser'>
+<@c.page 'ASUOD-ListStation'>
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Управление пользователями</h2>
+                    <h2>Управление ПТЭ</h2>
                 </div>
                 <div class="col-sm-6">
-                    <a href="/userAdd" class="btn btn-success btn-group">Добавить</a>
+                    <a href="/stationAdd" class="btn btn-success btn-group">Добавить</a>
                 </div>
             </div>
         </div>
 
-        <table class="table table-bordered table-hover" id="userTable">
-            <thead class="text-center thead-light">
+        <table class="table table-hover table table-bordered" id="stationTable">
+            <thead class="thead-light text-center">
             <tr>
-                <th>Логин</th>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>E-mail</th>
+                <th>Номер</th>
+                <th>Код</th>
+                <th>Тип</th>
+                <th>Название</th>
+                <th>Адрес</th>
                 <th>Статус</th>
-                <th>Права</th>
                 <th>Действия</th>
             </tr>
             </thead>
             <tbody class="text-center align-middle">
-            <#list users as user>
+            <#list stations as station>
                 <tr>
-                    <td class="align-middle">${user.username}</td>
-                    <td class="align-middle">${user.lastname}</td>
-                    <td class="align-middle">${user.firstname}</td>
-                    <td class="align-middle">${user.patronymic}</td>
-                    <td class="align-middle">${user.email}</td>
+                    <td class="align-middle">${station.stationnumber}</td>
+                    <td class="align-middle">${station.stationcode}</td>
+                    <td class="align-middle">${station.stationtype}</td>
+                    <td class="align-middle">${station.stationname}</td>
+                    <td class="align-middle">${station.stationaddress}</td>
                     <td class="align-middle">
-                        <#if user.active==true>Активен
-                        <#else>Заблокирован
+                        <#if station.active==true>Активен
+                        <#else>Демонтирован
                         </#if>
                     </td>
-                    <td class="align-middle"><#list user.roles as role>${role}<#sep><br> </#list></td>
                     <td class="align-middle">
-                        <a class="edit" href="/user/${user.id}" data-toggle="tooltip"
-                           title="Редактировать профиль пользователя"><i class="far fa-edit fa-lg"></i></a>
-                        <a class="delete" data-toggle="modal" data-target="#deleteConfirm" data-userid="${user.id}"
-                           title="Удалить пользователя"><i class="far fa-trash-alt fa-lg"></i></a>
+                        <a href="/station/${station.id}" data-toggle="tooltip" title="Редактировать ПТЭ">
+                            <i class="far fa-edit fa-lg"></i></a>
+                        <a class="delete" data-toggle="modal" data-target="#deleteConfirm"
+                           data-stationid="${station.id}"
+                           title="Удалить ПТЭ"><i class="far fa-trash-alt fa-lg"></i></a>
                     </td>
                 </tr>
             </#list>
@@ -64,7 +63,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        Вы собираетесь удалить пользователя из системы. Это действие необратимо. Вы уверены?
+                        Вы собираетесь удалить ПТЭ из системы. Это действие необратимо. Вы уверены?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
@@ -74,19 +73,18 @@
             </div>
         </div>
     </div>
-
     <!-- DataTable JS-->
     <script type="text/javascript" src="/static/DataTables_bs4/datatables.js"></script>
     <!-- DataTable Table Settings-->
     <script type="text/javascript" charset="utf8"
-            src="/static/js/dataTableActivateUserTable.js"></script>
+            src="/static/js/dataTableActivateStationTable.js"></script>
     <!-- JS For Modal Confirm Delete User-->
     <script>
         $(document).ready(function () {
             $('#deleteConfirm').on('show.bs.modal', function (event) {
                 var element = $(event.relatedTarget)
-                var id = element.data('userid')
-                var link = '/user/del/' + id
+                var id = element.data('stationid')
+                var link = '/station/del/' + id
                 document.getElementById('dellink').href = link;
             })
         })
